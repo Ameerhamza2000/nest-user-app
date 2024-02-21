@@ -7,7 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as mongoose from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './schemas/user.schema';
+import { User } from '../models/user.schema';
 
 @Injectable()
 export class UserService {
@@ -16,6 +16,7 @@ export class UserService {
     private userModel: mongoose.Model<User>,
   ) {}
 
+  // create user
   async create(createUserDto: CreateUserDto): Promise<User> {
     const isEmailExist= await this.userModel.findOne({email:createUserDto.email})
     if(isEmailExist){
@@ -25,15 +26,13 @@ export class UserService {
     return user;
   }
 
-  login(createUserDto: CreateUserDto) {
-    return 'This action signin a  user';
-  }
-
+  // get all users
   async findAll(): Promise<User[]> {
     const users = await this.userModel.find();
     return users;
   }
 
+  // get one user
   async findOne(id: string): Promise<User> {
     const isValid = mongoose.isValidObjectId(id);
     if (!isValid) {
@@ -47,6 +46,7 @@ export class UserService {
     return user;
   }
 
+  // update user
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const isValid = mongoose.isValidObjectId(id);
     if (!isValid) {
@@ -61,6 +61,7 @@ export class UserService {
     return user;
   }
 
+  // delete user
   async remove(id: string): Promise<User> {
     const isValid = mongoose.isValidObjectId(id);
     if (!isValid) {
