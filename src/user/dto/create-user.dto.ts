@@ -1,10 +1,11 @@
 import { Optional } from "@nestjs/common";
-import { IsEmail,  IsNotEmpty, IsString } from "class-validator";
+import { IsEmail,  IsNotEmpty, IsString, MinLength } from "class-validator";
 
 export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  @MinLength(2)
   name: string;
 
   @IsEmail()
@@ -13,6 +14,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  @MinLength(6)
   password: string;
 
   @Optional()
