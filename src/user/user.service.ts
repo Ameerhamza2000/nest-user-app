@@ -28,7 +28,7 @@ export class UserService {
 
   // get all users
   async findAll(): Promise<User[]> {
-    const users = await this.userModel.find();
+    const users = await this.userModel.find().select('-password');
     return users;
   }
 
